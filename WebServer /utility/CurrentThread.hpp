@@ -2,7 +2,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-21 11:58:18
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-06-21 12:02:29
+ * @LastEditTime: 2023-06-21 12:53:25
  * @FilePath: /ACWebserver/WebServer /utility/CurrentThread.hpp
  * @Description: 记录线程信息*/
 #pragma once
@@ -11,6 +11,7 @@
 
 namespace aclolinta {
 namespace thread {
+namespace CurrentThread {
 // internal
 extern __thread int t_cachedTid;
 extern __thread char t_tidString[32];
@@ -35,5 +36,6 @@ inline int tidStringLength()  // for logging
 }
 
 inline const char* name() { return t_threadName; }
+}  // namespace CurrentThread
 }  // namespace thread
 }  // namespace aclolinta
