@@ -2,7 +2,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-21 11:24:51
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-06-21 11:35:59
+ * @LastEditTime: 2023-06-22 09:11:34
  * @FilePath: /ACWebserver/WebServer /utility/MutexLock.hpp
  * @Description: 互斥锁 */
 #pragma once
@@ -45,6 +45,7 @@ MutexLock::~MutexLock() {
 void MutexLock::lock() { pthread_mutex_lock(&m_mutex); }
 void MutexLock::unlock() { pthread_mutex_unlock(&m_mutex); }
 
+//一个自动锁，构造时上锁，析构解锁
 class MutexLockGuard : noncopyable {
    private:
     /* data */
