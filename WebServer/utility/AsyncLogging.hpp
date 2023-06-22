@@ -2,7 +2,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-22 09:15:28
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-06-22 10:01:35
+ * @LastEditTime: 2023-06-22 12:19:15
  * @FilePath: /ACWebserver/WebServer/utility/AsyncLogging.hpp
  * @Description:
  * AsyncLogging是核心，它负责启动一个log线程，专门用来将log写入LogFile，应用了“双缓冲技术”，其实有4个以上的缓冲区，但思想是一样的。
@@ -19,6 +19,10 @@
 #include "Thread.hpp"
 #include "noncopyable.hpp"
 
+using namespace aclolinta::thread;
+
+namespace aclolinta {
+namespace logger {
 class AsyncLogging : noncopyable {
    public:
     AsyncLogging(std::string_view basename, int flushInterval = 2);
@@ -46,9 +50,9 @@ class AsyncLogging : noncopyable {
 
    private:
     /* data */
-    typedef FixedBuffer<kLargeBuffer> Buffer;
-    typedef std::vector<std::shared_ptr<Buffer>> BufferVector;
-    typedef std::shared_ptr<Buffer> BufferPtr;
+    using Buffer = FixedBuffer<kLargeBuffer>;
+    using BufferVector = std::vector<std::shared_ptr<Buffer>>;
+    using BufferPtr = std::shared_ptr<Buffer>;
     const int flushInterval_;
     bool running_;
     std::string basename_;
@@ -58,5 +62,7 @@ class AsyncLogging : noncopyable {
     BufferPtr currentBuffer_;
     BufferPtr nextBuffer_;
     BufferVector buffers_;
-    CountDownLatch latch_;
+    CDLatch latch_;
 };
+}  // namespace logger
+}  // namespace aclolinta
