@@ -58,21 +58,22 @@ enum HttpVersion { HTTP_10 = 1, HTTP_11 };
 
 //
 class MimeType {
-   public:
-    static std::string getMime(const std::string &suffix);
-
    private:
     MimeType(/* args */);
     MimeType(const MimeType &m);
     ~MimeType();
 
-   private:
-    static void init();
-    static std::map<std::string, std::string> mime;
+    public:
+     static std::string getMime(const std::string &suffix);
 
-   private:
-    /* data */
-    static pthread_once_t once_control;
+    private:
+     static void init();
+     static std::map<std::string, std::string> mime;
+
+    private:
+     /* data */
+     // 只创建一次
+     static pthread_once_t once_control;
 };
 
 class HttpData {
