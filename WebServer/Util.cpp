@@ -2,7 +2,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-24 10:06:39
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-06-24 10:54:54
+ * @LastEditTime: 2023-06-25 03:10:35
  * @FilePath: /ACWebserver/WebServer/Util.cpp
  * @Description: 提供IO的工具*/
 #include "Util.hpp"
@@ -184,12 +184,12 @@ int setSocketNonBlocking(int fd) {
     if (fcntl(fd, F_SETFL, flag) == -1) return -1;
     return 0;
 }
-
+// 禁用Nagle
 void setSocketNodelay(int fd) {
     int enable = 1;
     setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, (void *)&enable, sizeof(enable));
 }
-
+// 延迟关闭socket
 void setSocketNoLinger(int fd) {
     struct linger linger_;
     linger_.l_onoff = 1;
