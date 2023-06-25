@@ -7,8 +7,8 @@
 aux_source_directory(./ SRCS)
 
 
-include_directories(${PROJECT_SOURCE_DIR}/utility)
-
+include_directories(${PROJECT_SOURCE_DIR}/WebServer/utility)
+# message("${SRCS}")
 
 add_executable(WebServer ${SRCS})
 target_link_libraries(WebServer libserver_base)
