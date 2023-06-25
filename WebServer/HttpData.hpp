@@ -1,4 +1,5 @@
 #pragma once
+
 #include <sys/epoll.h>
 #include <unistd.h>
 
@@ -11,9 +12,12 @@
 
 namespace aclolinta {
 namespace http {
+
 class EventLoop;
 class TimerNode;
 class Channel;
+// class HttpData;
+// class MimeType;
 // 状态代码
 
 enum ProcessState {
@@ -57,24 +61,6 @@ enum HttpMethod { METHOD_POST = 1, METHOD_GET, METHOD_HEAD };
 enum HttpVersion { HTTP_10 = 1, HTTP_11 };
 
 //
-class MimeType {
-   private:
-    MimeType(/* args */);
-    MimeType(const MimeType &m);
-    ~MimeType();
-
-    public:
-     static std::string getMime(const std::string &suffix);
-
-    private:
-     static void init();
-     static std::map<std::string, std::string> mime;
-
-    private:
-     /* data */
-     // 只创建一次
-     static pthread_once_t once_control;
-};
 
 class HttpData {
    public:
@@ -123,5 +109,25 @@ class HttpData {
     std::map<std::string, std::string> headers_;
     std::weak_ptr<TimerNode> timer_;
 };
+
+class MimeType {
+   private:
+    MimeType(/* args */);
+    MimeType(const MimeType &m);
+    ~MimeType();
+
+   public:
+    static std::string getMime(const std::string &suffix);
+
+   private:
+    static void init();
+    static std::map<std::string, std::string> mime;
+
+   private:
+    /* data */
+    // 只创建一次
+    static pthread_once_t once_control;
+};
+
 }  // namespace http
 }  // namespace aclolinta
