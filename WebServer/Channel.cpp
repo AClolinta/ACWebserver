@@ -2,8 +2,49 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-25 04:10:39
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-06-25 04:10:55
+ * @LastEditTime: 2023-06-25 04:25:52
  * @FilePath: /ACWebserver/WebServer/Channel.cpp
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- */
+ * @Description:
+ *  */
 #include "Channel.hpp"
+
+#include <unistd.h>
+
+#include <cstdlib>
+#include <iostream>
+#include <queue>
+
+#include "Epoll.hpp"
+#include "EventLoop.hpp"
+#include "Util.hpp"
+
+using namespace aclolinta::task;
+
+Channel::Channel(EventLoop *loop)
+    : loop_(loop), fd_(0), events_(0), revents_(0), lastEvents_(0) {}
+
+Channel::Channel(EventLoop *loop, int fd)
+    : loop_(loop), fd_(fd), events_(0), revents_(0), lastEvents_(0) {}
+
+Channel::~Channel() = default;
+
+int Channel::getFd() { return fd_; }
+void Channel::setFd(int fd) { fd_ = fd; }
+
+void Channel::handleRead() {
+    if (readHandler_) {
+        readHandler_();
+    }
+}
+
+void Channel::handleWrite() {
+    if (writeHandler_) {
+        writeHandler_();
+    }
+}
+
+void Channel::handleConn() {
+    if (connHandler_) {
+        connHandler_();
+    }
+}

@@ -13,6 +13,9 @@
 #include "Util.hpp"
 
 using namespace aclolinta::http;
+using namespace aclolinta::task;
+using namespace aclolinta::event;
+using namespace aclolinta::timer;
 
 pthread_once_t MimeType::once_control = PTHREAD_ONCE_INIT;
 std::map<std::string, std::string> MimeType::mime;
@@ -122,8 +125,8 @@ std::string MimeType::getMime(const std::string &suffix) {
         return mime[suffix];
     }
 }
-// 不知道为什么识别不了命名空间
-// using namespace aclolinta::http;
+
+
 HttpData::HttpData(EventLoop *loop, int connfd)
     : loop_(loop),
       channel_(new Channel(loop, connfd)),
@@ -137,20 +140,33 @@ HttpData::HttpData(EventLoop *loop, int connfd)
       hState_(H_START),
       keepAlive_(false) {
     // loop_->queueInLoop(bind(&HttpData::setHandlers, this));
-    channel_->setReadHandler(bind(&HttpData::handleRead, this));
-    channel_->setWriteHandler(bind(&HttpData::handleWrite, this));
-    channel_->setConnHandler(bind(&HttpData::handleConn, this));
+    channel_->setReadHandler(std::bind(&HttpData::handleRead, this));
+    channel_->setWriteHandler(std::bind(&HttpData::handleWrite, this));
+    channel_->setConnHandler(std::bind(&HttpData::handleConn, this));
 }
 
 void HttpData::reset() {
     fileName_.clear();
     path_.clear();
-    inBuffer_.clear();
-    outBuffer_.clear();
-    error_ = false;
-    hState_ = H_START;
-    headers_.clear();
     nowReadPos_ = 0;
     state_ = STATE_PARSE_URI;
-    keepAlive_ = false;
+    hState_ = H_START;
+    headers_.clear();
+    if (timer_.lock()) {
+        std::shared_ptr<TimerNode> my_timer(timer_.lock());
+        my_timer->clearReq();
+        timer_.reset();
+    }
+}
+// 将 HttpData 对象与关联的计时器 TimerNode 分离
+void HttpData::seperateTimer() {
+    if (timer_.lock()) {
+        std::shared_ptr<TimerNode> my_timer(timer_.lock());
+        my_timer->clearReq();
+        timer_.reset();
+    }
+}
+
+void HttpData::handleRead(){
+    __uint32_t &events_ = channel_->getEvents();
 }

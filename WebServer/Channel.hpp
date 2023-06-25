@@ -2,10 +2,13 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-23 11:29:41
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-06-25 04:09:38
+ * @LastEditTime: 2023-06-25 09:51:29
  * @FilePath: /ACWebserver/WebServer/Channel.hpp
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置
- * 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @Description:
+ * Channel类：Channel是Reactor结构中的“事件”，
+ * 它自始至终都属于一个EventLoop，负责一个文件描述符的IO事件，在Channel类中保存这IO事件的类型以及对应的回调函数，
+ * 当IO事件发生时，最终会调用到Channel类中的回调函数。
+ * 因此，程序中所有带有读写时间的对象都会和一个Channel关联，包括loop中的eventfd，listenfd，HttpData等。
  */
 #pragma once
 
@@ -20,10 +23,10 @@
 
 namespace aclolinta {
 namespace task {
-    using SP_CHannel = std::shared_ptr<Channel>;
+using SP_CHannel = std::shared_ptr<Channel>;
 
-class EventLoop;
-class HttpData;
+class aclolinta::event::EventLoop;
+class aclolinta::http::HttpData;
 
 class Channel {
    private:
@@ -37,8 +40,20 @@ class Channel {
     // 方便找到上层持有该Channel的对象
     std::weak_ptr<HttpData> holder_;
 
+   private:
+    int parse_URI();
+    int parse_Headers();
+    int analysisRequest();
+
+   private:
+    CallBack readHandler_;
+    CallBack writeHandler_;
+    CallBack errorHandler_;
+    CallBack connHandler_;
+
    public:
-    Channel(/* args */);
+    Channel(EventLoop *loop);
+    Channel(EventLoop *loop, int fd);
     ~Channel();
 
    public:
@@ -53,7 +68,7 @@ class Channel {
 
     void setReadHandler(CallBack &&readHandler) { readHandler_ = readHandler; }
 
-    void serWriteHandler(CallBack &&writeHandler) {
+    void setWriteHandler(CallBack &&writeHandler) {
         writeHandler_ = writeHandler;
     }
 
@@ -63,22 +78,22 @@ class Channel {
 
     void setConnHandler(CallBack &&connHandler) { connHandler_ = connHandler; }
 
-    //处理逻辑
-    void handleEvents(){
+    // 处理逻辑
+    void handleEvents() {
         events_ = 0;
-        if((revents_ & EPOLLHUP) && !(revents_ & EPOLLIN)){
+        if ((revents_ & EPOLLHUP) && !(revents_ & EPOLLIN)) {
             events_ = 0;
             return;
         }
-        if(revents_ & EPOLLERR){
-            if(errorHandler_) errorHandler_();
+        if (revents_ & EPOLLERR) {
+            if (errorHandler_) errorHandler_();
             events_ = 0;
             return;
         }
-        if(revents_ & (EPOLLIN | EPOLLPRI | EPOLLRDHUP)){
+        if (revents_ & (EPOLLIN | EPOLLPRI | EPOLLRDHUP)) {
             handleRead();
         }
-        if(revents_ & EPOLLOUT){
+        if (revents_ & EPOLLOUT) {
             handleWrite();
         }
         handleConn();
@@ -91,7 +106,6 @@ class Channel {
 
     void setRevents(__uint32_t ev) { revents_ = ev; }
     void setEvents(__uint32_t ev) { events_ = ev; }
-    
 
     bool EqualAndUpdateLastEvents() {
         bool ret = (lastEvents_ == events_);
@@ -101,16 +115,7 @@ class Channel {
     __uint32_t &getEvents() { return events_; }
     __uint32_t getLastEvents() { return lastEvents_; }
 
-   private:
-    int parse_URI();
-    int parse_Headers();
-    int analysisRequest();
 
-   private:
-    CallBack readHandler_;
-    CallBack writeHandler_;
-    CallBack errorHandler_;
-    CallBack connHandler_;
 };
 }  // namespace task
 }  // namespace aclolinta

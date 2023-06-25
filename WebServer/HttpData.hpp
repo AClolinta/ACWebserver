@@ -1,3 +1,11 @@
+/*
+ * @Author: AClolinta AClolinta@gmail.com
+ * @Date: 2023-06-22 12:51:04
+ * @LastEditors: AClolinta AClolinta@gmail.com
+ * @LastEditTime: 2023-06-25 09:57:25
+ * @FilePath: /ACWebserver/WebServer/HttpData.hpp
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 #pragma once
 
 #include <sys/epoll.h>
@@ -10,12 +18,15 @@
 
 #include "Timer.hpp"
 
+
+// using namespace aclolinta::task;
+
 namespace aclolinta {
 namespace http {
 
-class EventLoop;
-class TimerNode;
-class Channel;
+class aclolinta::event::EventLoop;
+class aclolinta::timer::TimerNode;
+class aclolinta::task::Channel;
 // class HttpData;
 // class MimeType;
 // 状态代码
