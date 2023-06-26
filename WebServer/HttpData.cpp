@@ -16,6 +16,8 @@ using namespace aclolinta::http;
 using namespace aclolinta::task;
 using namespace aclolinta::event;
 using namespace aclolinta::timer;
+using namespace aclolinta::util;
+using namespace aclolinta::logger;
 
 pthread_once_t MimeType::once_control = PTHREAD_ONCE_INIT;
 std::map<std::string, std::string> MimeType::mime;
@@ -126,7 +128,6 @@ std::string MimeType::getMime(const std::string &suffix) {
     }
 }
 
-
 HttpData::HttpData(EventLoop *loop, int connfd)
     : loop_(loop),
       channel_(new Channel(loop, connfd)),
@@ -160,6 +161,7 @@ void HttpData::reset() {
 }
 // 将 HttpData 对象与关联的计时器 TimerNode 分离
 void HttpData::seperateTimer() {
+    // 清空计时器
     if (timer_.lock()) {
         std::shared_ptr<TimerNode> my_timer(timer_.lock());
         my_timer->clearReq();
@@ -167,6 +169,129 @@ void HttpData::seperateTimer() {
     }
 }
 
-void HttpData::handleRead(){
+void HttpData::handleRead() {
     __uint32_t &events_ = channel_->getEvents();
+    do {
+        bool zero = false;
+        int read_num = readn(fd_, inBuffer_, zero);
+        LOG << "Request: " << inBuffer_;
+        if (connectionState_ == H_DISCONNECTING) {
+            inBuffer_.clear();
+            break;
+        }
+        if (read_num < 0) {
+            // 读取错误
+            perror("1");
+            error_ = true;
+            handleError(fd_, 400, "Bad Request");
+        } else if (zero) {
+            // 有请求出现但是读不到数据，可能是Request
+            // Aborted，或者来自网络的数据没有达到等原因
+            // 最可能是对端已经关闭了，统一按照对端已经关闭处理
+            // error_ = true;
+            connectionState_ = H_DISCONNECTING;
+            if (read_num == 0) {
+                break;
+            }
+        }
+        // 解析URI
+        if (state_ == STATE_PARSE_URI) {
+            URIState flag = this->parseURI();
+            if (flag == PARSE_URI_AGAIN) {
+                break;
+            } else if (flag == PARSE_URI_ERROR) {
+                perror("2");
+                LOG << "FD = " << fd_ << "," << inBuffer_ << "******";
+                inBuffer_.clear();
+                error_ = true;
+                handleError(fd_, 400, "Bad Request");
+                break;
+            } else {
+                state_ = STATE_PARSE_HEADERS;
+                // 状态-解析头部
+            }
+        }
+
+        if (state_ == STATE_PARSE_HEADERS) {
+            HeaderState flag = this->parseHeaders();
+            if (flag == PARSE_HEADER_AGAIN) {
+                break;
+            } else if (flag == PARSE_HEADER_ERROR) {
+                perror("3");
+                error_ = true;
+                handleError(fd_, 400, "Bad Request");
+                break;
+            }
+            // 头部解析成功
+            if (method_ == METHOD_POST) {
+                // POST方法准备
+                state_ = STATE_RECV_BODY;
+            } else {
+                state_ = STATE_ANALYSIS;
+            }
+        }
+        // 接受Body
+        if (state_ == STATE_RECV_BODY) {
+            int content_length = -1;
+            if (headers_.find("Content-length") != headers_.end()) {
+                content_length = stoi(headers_["Content-length"]);
+            } else {
+                error_ = true;
+                handleError(fd_, 400,
+                            "Bad Request: Lack of argument (Content-length)");
+                break;
+            }
+            // 数据是否全部抵达
+            if (static_cast<int>(inBuffer_.size()) < content_length) {
+                break;
+            } else {
+                // 数据全部抵达
+                state_ = STATE_ANALYSIS;
+            }
+        }
+        // Body解析状态
+        if (state_ == STATE_ANALYSIS) {
+            AnalysisState flag = this->analysisRequest();
+            if (flag == ANALYSIS_SUCCESS) {
+                state_ = STATE_FINISH;
+                break;
+            } else {
+                // 解析失败
+                error_ = true;
+                break;
+            }
+        }
+    } while (false);
+
+    if (!error_) {
+        if (outBuffer_.size() > 0) {
+            handleWrite();
+        }
+
+        //
+        if (!error_ && state_ == STATE_FINISH) {
+            this->reset();
+            if (inBuffer_.size() > 0) {
+                if (connectionState_ != H_DISCONNECTING) {
+                    handleRead();
+                }
+            }
+        } else if (!error_ && connectionState_ != H_DISCONNECTED) {
+            events_ |= EPOLLIN;
+        }
+    }
+}
+
+void HttpData::handleWrite() {
+    if (!error_ && connectionState_ != H_DISCONNECTED) {
+        __uint32_t &events_ = channel_->getEvents();
+        if (writen(fd_, outBuffer_) < 0) {
+            perror("writen");
+            events_ = 0;
+            error_ = true;
+        }
+        if (outBuffer_.size() > 0) {
+            events_ |= EPOLLOUT;
+        }
+    }
 }
