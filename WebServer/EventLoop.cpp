@@ -115,7 +115,7 @@ void EventLoop::doPendingFunctors() {
         functors.swap(pendingFunctors_);
     }
     // perform the pending functors
-    for (auto it = functors.begin(); it != functors.end();++it) (*it);
+    for (auto it = functors.begin(); it != functors.end(); ++it) (*it);
     callingPendingFunctors_ = false;
 }
 

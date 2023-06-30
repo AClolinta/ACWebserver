@@ -2,7 +2,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-23 11:29:41
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-06-29 11:55:20
+ * @LastEditTime: 2023-06-30 13:00:15
  * @FilePath: /ACWebserver/WebServer/Channel.hpp
  * @Description:
  * Channel类：Channel是Reactor结构中的“事件”，
@@ -21,12 +21,15 @@
 
 #include "Timer.hpp"
 
+using namespace aclolinta::timer;
+using namespace aclolinta::event;
+
 namespace aclolinta {
 namespace task {
 
 
-class aclolinta::event::EventLoop;
-class aclolinta::http::HttpData;
+// class aclolinta::event::EventLoop;
+// class aclolinta::http::HttpData;
 
 class Channel {
    private:
