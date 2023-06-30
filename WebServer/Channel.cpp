@@ -2,7 +2,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-25 04:10:39
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-06-25 04:25:52
+ * @LastEditTime: 2023-06-30 10:35:43
  * @FilePath: /ACWebserver/WebServer/Channel.cpp
  * @Description:
  *  */
@@ -19,6 +19,7 @@
 #include "Util.hpp"
 
 using namespace aclolinta::task;
+using namespace aclolinta::event;
 
 Channel::Channel(EventLoop *loop)
     : loop_(loop), fd_(0), events_(0), revents_(0), lastEvents_(0) {}
