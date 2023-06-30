@@ -7,6 +7,7 @@
 #include <time.h>
 
 #include <iostream>
+#include <memory>
 
 #include "Channel.hpp"
 #include "EventLoop.hpp"
