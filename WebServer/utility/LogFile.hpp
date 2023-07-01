@@ -17,7 +17,7 @@
 #include "MutexLock.hpp"
 #include "noncopyable.hpp"
 
-using namespace aclolinta::thread;
+using namespace aclolinta;
 
 namespace aclolinta {
 class LogFile {

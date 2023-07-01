@@ -2,7 +2,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-21 12:42:29
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-07-01 03:14:59
+ * @LastEditTime: 2023-07-01 04:20:59
  * @FilePath: /ACWebserver/WebServer /utility/Thread.cpp
  * @Description:线程类的实现 */
 
@@ -24,7 +24,7 @@ using namespace aclolinta;
 #include "CurrentThread.hpp"
 
 // 外部定义
-namespace aclolinta::thread::CurrentThread {
+namespace aclolinta::CurrentThread {
 __thread int t_cachedTid = 0;
 __thread char t_tidString[32];
 __thread int t_tidStringLength = 6;
