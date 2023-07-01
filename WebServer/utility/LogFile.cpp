@@ -15,7 +15,7 @@
 
 #include "FileUtil.hpp"
 
-using namespace aclolinta::logger;
+using namespace aclolinta;
 
 LogFile::LogFile(std::string_view basename, int flushEveryN = 1024)
     : basename_(basename),

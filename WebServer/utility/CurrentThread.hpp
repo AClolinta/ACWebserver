@@ -10,7 +10,6 @@
 #include <stdint.h>
 
 namespace aclolinta {
-namespace thread {
 namespace CurrentThread {
 // internal
 extern __thread int t_cachedTid;
@@ -37,5 +36,4 @@ inline int tidStringLength()  // for logging
 
 inline const char* name() { return t_threadName; }
 }  // namespace CurrentThread
-}  // namespace thread
 }  // namespace aclolinta

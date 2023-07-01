@@ -13,12 +13,7 @@
 #include "EventLoop.hpp"
 #include "Util.hpp"
 
-using namespace aclolinta::http;
-using namespace aclolinta::task;
-using namespace aclolinta::event;
-using namespace aclolinta::timer;
-using namespace aclolinta::util;
-using namespace aclolinta::logger;
+using namespace aclolinta;
 
 pthread_once_t MimeType::once_control = PTHREAD_ONCE_INIT;
 std::map<std::string, std::string> MimeType::mime;
@@ -608,8 +603,8 @@ void HttpData::handleError(int fd, int err_num, std::string short_msg) {
     header_buff += "HTTP/1.1 " + std::to_string(err_num) + short_msg + "\r\n";
     header_buff += "Content-Type: text/html\r\n";
     header_buff += "Connection: Close\r\n";
-    header_buff += "Content-Length: " + std::to_string(body_buff.size()) +
-                   "\r\n";
+    header_buff +=
+        "Content-Length: " + std::to_string(body_buff.size()) + "\r\n";
     header_buff += "Server: ACLOLINTA Web Server\r\n\r\n";
     // Error handling does not consider writen incomplete
     sprintf(send_buff, "%s", header_buff.c_str());
@@ -624,7 +619,7 @@ void HttpData::handleClose() {
     loop_->removeFromPoller(channel_);
 }
 
-void HttpData::newEvent(){
+void HttpData::newEvent() {
     channel_->setEvents(DEFAULT_EVENT);
     loop_->addToPoller(channel_, DEFAULT_EXPIRED_TIME);
 }

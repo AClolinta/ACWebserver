@@ -20,7 +20,6 @@
 using namespace aclolinta::thread;
 
 namespace aclolinta {
-namespace logger {
 class LogFile {
    private:
     /* data */
@@ -43,5 +42,4 @@ class LogFile {
     void flush();
     bool rollFile();
 };
-}  // namespace logger
 }  // namespace aclolinta

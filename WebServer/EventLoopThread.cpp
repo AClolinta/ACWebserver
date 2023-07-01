@@ -2,8 +2,7 @@
 
 #include <functional>
 
-using namespace aclolinta::thread;
-using namespace aclolinta::event;
+using namespace aclolinta;
 
 EventLoopThread::EventLoopThread()
     : loop_(nullptr),

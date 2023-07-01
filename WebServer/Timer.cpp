@@ -16,8 +16,8 @@
 
 #include "HttpData.hpp"
 
-using namespace aclolinta::timer;
-using namespace aclolinta::http;
+using namespace aclolinta;
+
 
 TimerNode::TimerNode(std::shared_ptr<HttpData> requestData, int timeout)
     : deleted_(false), SPHttpData(requestData) {

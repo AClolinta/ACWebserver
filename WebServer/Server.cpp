@@ -16,10 +16,7 @@
 #include "Logging.hpp"
 #include "Util.hpp"
 
-using namespace aclolinta::logger;
-using namespace aclolinta::util;
-
-using namespace aclolinta::server;
+using namespace aclolinta;
 
 Server::Server(EventLoop* loop, int threadNum, int port)
     : loop_(loop),
@@ -61,7 +58,7 @@ void Server::handNewConn() {
             continue;
         }
         // set socket non block
-        if (setSocketNonBlocking(accept_fd) < 0){
+        if (setSocketNonBlocking(accept_fd) < 0) {
             LOG << "Set non block failed!";
             return;
         }

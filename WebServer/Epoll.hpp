@@ -2,7 +2,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-25 04:20:15
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-06-30 10:12:48
+ * @LastEditTime: 2023-07-01 03:16:12
  * @FilePath: /ACWebserver/WebServer/Epoll.hpp
  * @Description: Epoll真难啊 */
 #pragma once
@@ -15,14 +15,11 @@
 #include "Channel.hpp"
 #include "HttpData.hpp"
 #include "Timer.hpp"
-using namespace aclolinta::http;
-using namespace aclolinta::timer;
-using namespace aclolinta::task;
 
 using SP_Channel = std::shared_ptr<Channel>;
 
 namespace aclolinta {
-namespace event {
+
 class Epoll {
    public:
     Epoll(/* args */);
@@ -43,12 +40,12 @@ class Epoll {
 
    private:
     /* data */
-    int epollFd_; // fd of epoll
+    int epollFd_;  // fd of epoll
     static const int MAXFDS = 100000;
     std::vector<epoll_event> events_;
     std::shared_ptr<Channel> fd2chan_[MAXFDS];
     std::shared_ptr<HttpData> fd2http_[MAXFDS];
     TimerManager timerManager_;
 };
-}  // namespace event
+
 }  // namespace aclolinta

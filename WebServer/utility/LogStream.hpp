@@ -2,7 +2,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-22 09:18:08
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-06-22 09:51:08
+ * @LastEditTime: 2023-07-01 03:13:02
  * @FilePath: /ACWebserver/WebServer/utility/LogStream.hpp
  * @Description: 要用来格式化输出
  * */
@@ -15,7 +15,6 @@
 #include "noncopyable.hpp"
 
 namespace aclolinta {
-namespace logger {
 
 class AsyncLogging;
 
@@ -123,5 +122,4 @@ class LogStream : noncopyable {
     void staticCheck();
 };
 
-}  // namespace logger
 }  // namespace aclolinta

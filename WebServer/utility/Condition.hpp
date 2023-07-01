@@ -16,7 +16,6 @@
 #include "noncopyable.hpp"
 
 namespace aclolinta {
-namespace thread {
 class Condition : noncopyable {
    private:
     /* data */
@@ -42,5 +41,4 @@ class Condition : noncopyable {
     }
 };
 
-}  // namespace thread
 }  // namespace aclolinta

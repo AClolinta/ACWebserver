@@ -8,10 +8,7 @@
 #include "Logging.hpp"
 #include "Util.hpp"
 
-using namespace aclolinta::event;
-
-using namespace aclolinta::util;
-using namespace aclolinta::logger;
+using namespace aclolinta;
 
 __thread EventLoop *t_loopInThisThread = nullptr;
 

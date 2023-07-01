@@ -2,7 +2,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-23 11:29:41
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-06-30 13:00:15
+ * @LastEditTime: 2023-07-01 03:09:51
  * @FilePath: /ACWebserver/WebServer/Channel.hpp
  * @Description:
  * Channel类：Channel是Reactor结构中的“事件”，
@@ -21,12 +21,7 @@
 
 #include "Timer.hpp"
 
-using namespace aclolinta::timer;
-using namespace aclolinta::event;
-
 namespace aclolinta {
-namespace task {
-
 
 // class aclolinta::event::EventLoop;
 // class aclolinta::http::HttpData;
@@ -65,7 +60,8 @@ class Channel {
     void setFd(int fd) { fd_ = fd; }
 
     void setHolder(std::shared_ptr<HttpData> holder) { holder_ = holder; }
-    // Get the HttpData object which holds this Channel object and increase the reference count
+    // Get the HttpData object which holds this Channel object and increase the
+    // reference count
     std::shared_ptr<HttpData> getHolder() {
         std::shared_ptr<HttpData> ret(holder_.lock());
         return ret;
@@ -122,5 +118,5 @@ class Channel {
 
     using SP_Channel = std::shared_ptr<Channel>;
 };
-}  // namespace task
 }  // namespace aclolinta
+

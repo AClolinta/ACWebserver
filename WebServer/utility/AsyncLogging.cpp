@@ -2,10 +2,9 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-22 12:18:30
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-06-22 12:20:59
+ * @LastEditTime: 2023-07-01 03:15:16
  * @FilePath: /ACWebserver/WebServer/utility/AsyncLogging.cpp
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- */
+ * @Description: */
 #include "AsyncLogging.hpp"
 
 #include <assert.h>
@@ -16,9 +15,8 @@
 
 #include "LogFile.hpp"
 
-using namespace aclolinta::logger;
+using namespace aclolinta;
 
-using namespace aclolinta::thread;
 
 AsyncLogging::AsyncLogging(std::string_view logFileName_, int flushInterval)
     : flushInterval_(flushInterval),

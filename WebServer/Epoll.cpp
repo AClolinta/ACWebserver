@@ -22,10 +22,7 @@
 #include "Logging.hpp"
 #include "Util.hpp"
 
-using namespace aclolinta::logger;
-using namespace aclolinta::util;
-
-using namespace aclolinta::event;
+using namespace aclolinta;
 
 const int EVENTSNUM = 4096;
 const int EPOLLWAIT_TIME = 10000;

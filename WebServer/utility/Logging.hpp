@@ -2,7 +2,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-22 12:24:21
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-06-22 12:32:54
+ * @LastEditTime: 2023-07-01 03:12:39
  * @FilePath: /ACWebserver/WebServer/utility/Logging.hpp
  * @Description:是对外接口，Logging类内涵一个LogStream对象，主要是为了每次打log的时候在log之前和之后加上固定的格式化的信息，
  * 比如打log的行、
@@ -20,7 +20,6 @@
 #include "LogStream.hpp"
 
 namespace aclolinta {
-namespace logger {
 
 class AsyncLogging;
 class Logger {
@@ -53,5 +52,4 @@ class Logger {
 
 #define LOG Logger(__FILE__, __LINE__).stream()
 
-}  // namespace logger
 }  // namespace aclolinta

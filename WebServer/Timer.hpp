@@ -3,7 +3,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-22 12:45:22
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-06-30 12:54:25
+ * @LastEditTime: 2023-07-01 03:19:31
  * @FilePath: /ACWebserver/WebServer/Time.hpp
  * @Description: 计时器 */
 #pragma once
@@ -17,10 +17,9 @@
 #include "MutexLock.hpp"
 #include "noncopyable.hpp"
 
-using namespace aclolinta::http;
+
 
 namespace aclolinta {
-namespace timer {
 // class aclolinta::http::HttpData;
 
 class TimerNode {
@@ -69,5 +68,4 @@ class TimerManager {
     // MutexLock lock;
 };
 
-}  // namespace timer
 }  // namespace aclolinta

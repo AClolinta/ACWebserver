@@ -14,9 +14,7 @@
 #include "Logging.hpp"
 #include "Server.hpp"
 
-using namespace aclolinta::event;
-using namespace aclolinta::logger;
-using namespace aclolinta::server;
+using namespace aclolinta;
 
 int main(int argc, char *argv[]) {
     int threadNum = 4;
