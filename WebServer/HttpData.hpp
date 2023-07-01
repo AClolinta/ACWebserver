@@ -2,7 +2,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-22 12:51:04
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-07-01 03:18:24
+ * @LastEditTime: 2023-07-01 03:41:47
  * @FilePath: /ACWebserver/WebServer/HttpData.hpp
  * @Description:
  *   */
@@ -21,6 +21,10 @@
 
 
 namespace aclolinta {
+
+class EventLoop;
+class TimerNode;
+class Channel;
 
 // 状态代码
 

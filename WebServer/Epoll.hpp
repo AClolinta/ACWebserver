@@ -2,7 +2,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-25 04:20:15
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-07-01 03:16:12
+ * @LastEditTime: 2023-07-01 03:42:39
  * @FilePath: /ACWebserver/WebServer/Epoll.hpp
  * @Description: Epoll真难啊 */
 #pragma once
@@ -16,10 +16,10 @@
 #include "HttpData.hpp"
 #include "Timer.hpp"
 
-using SP_Channel = std::shared_ptr<Channel>;
+
 
 namespace aclolinta {
-
+using SP_Channel = std::shared_ptr<Channel>;
 class Epoll {
    public:
     Epoll(/* args */);

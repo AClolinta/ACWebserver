@@ -343,7 +343,7 @@ URIState HttpData::parseURI() {
     }
     // / 去掉请求行所占的空间
     std::string request_line = str.substr(0, pos);
-    if (str.size() > pos + 1) {
+    if (str.size() > size_t(pos + 1)) {
         str = str.substr(pos + 1);
     } else {
         str.clear();

@@ -3,7 +3,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-22 12:45:22
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-07-01 03:19:31
+ * @LastEditTime: 2023-07-01 03:43:08
  * @FilePath: /ACWebserver/WebServer/Time.hpp
  * @Description: 计时器 */
 #pragma once
@@ -21,6 +21,8 @@
 
 namespace aclolinta {
 // class aclolinta::http::HttpData;
+
+class HttpData;
 
 class TimerNode {
    public:
