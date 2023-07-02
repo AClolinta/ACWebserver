@@ -20,7 +20,6 @@
 
 
 
-namespace aclolinta {
 
 class EventLoop;
 class TimerNode;
@@ -137,4 +136,3 @@ class MimeType {
     static pthread_once_t once_control;
 };
 
-}  // namespace aclolinta

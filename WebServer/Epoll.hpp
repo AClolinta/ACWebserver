@@ -18,7 +18,6 @@
 
 
 
-namespace aclolinta {
 using SP_Channel = std::shared_ptr<Channel>;
 class Epoll {
    public:
@@ -48,4 +47,4 @@ class Epoll {
     TimerManager timerManager_;
 };
 
-}  // namespace aclolinta
+ // namespace aclolinta

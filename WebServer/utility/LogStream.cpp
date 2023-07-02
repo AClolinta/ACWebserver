@@ -17,7 +17,6 @@
 #include <algorithm>
 #include <limits>
 
-using namespace aclolinta;
 
 // 方便在后续的代码中通过指针 zero 来访问数字 0
 const char digits[] = "9876543210123456789";

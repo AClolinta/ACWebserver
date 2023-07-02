@@ -15,7 +15,6 @@
 #include "MutexLock.hpp"
 #include "noncopyable.hpp"
 
-namespace aclolinta {
 class Condition : noncopyable {
    private:
     /* data */
@@ -41,4 +40,4 @@ class Condition : noncopyable {
     }
 };
 
-}  // namespace aclolinta
+  // namespace aclolinta

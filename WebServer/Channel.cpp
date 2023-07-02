@@ -18,7 +18,7 @@
 #include "EventLoop.hpp"
 #include "Util.hpp"
 
-using namespace aclolinta;
+
 
 Channel::Channel(EventLoop *loop)
     : loop_(loop), fd_(0), events_(0), revents_(0), lastEvents_(0) {}

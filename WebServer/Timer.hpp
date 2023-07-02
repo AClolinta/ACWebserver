@@ -19,7 +19,6 @@
 
 
 
-namespace aclolinta {
 // class aclolinta::http::HttpData;
 
 class HttpData;
@@ -70,4 +69,4 @@ class TimerManager {
     // MutexLock lock;
 };
 
-}  // namespace aclolinta
+

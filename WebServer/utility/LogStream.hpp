@@ -14,7 +14,6 @@
 
 #include "noncopyable.hpp"
 
-namespace aclolinta {
 
 class AsyncLogging;
 
@@ -122,4 +121,4 @@ class LogStream : noncopyable {
     void staticCheck();
 };
 
-}  // namespace aclolinta
+  // namespace aclolinta

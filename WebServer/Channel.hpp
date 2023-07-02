@@ -21,7 +21,7 @@
 
 #include "Timer.hpp"
 
-namespace aclolinta {
+
 
 // class aclolinta::event::EventLoop;
 // class aclolinta::http::HttpData;
@@ -120,5 +120,5 @@ class Channel {
 
     using SP_Channel = std::shared_ptr<Channel>;
 };
-}  // namespace aclolinta
+// namespace aclolinta
 

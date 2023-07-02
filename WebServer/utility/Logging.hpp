@@ -19,7 +19,6 @@
 
 #include "LogStream.hpp"
 
-namespace aclolinta {
 
 class AsyncLogging;
 class Logger {
@@ -52,4 +51,4 @@ class Logger {
 
 #define LOG Logger(__FILE__, __LINE__).stream()
 
-}  // namespace aclolinta
+ // namespace aclolinta

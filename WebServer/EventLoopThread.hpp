@@ -22,7 +22,6 @@
 #include "noncopyable.hpp"
 
 
-namespace aclolinta {
 
 class EventLoopThread : public noncopyable {
    public:
@@ -40,4 +39,4 @@ class EventLoopThread : public noncopyable {
     MutexLock mutex_;
     Condition cond_;
 };
-}  // namespace aclolinta
+  // namespace aclolinta

@@ -17,7 +17,6 @@
 #include "CurrentThread.hpp"
 #include "Thread.hpp"
 
-using namespace aclolinta;
 
 
 static pthread_once_t once_control_ = PTHREAD_ONCE_INIT;

@@ -19,7 +19,6 @@
 #include "Thread.hpp"
 #include "noncopyable.hpp"
 
-namespace aclolinta {
 class AsyncLogging : noncopyable {
    public:
     AsyncLogging(std::string_view basename, int flushInterval = 2);
@@ -62,4 +61,4 @@ class AsyncLogging : noncopyable {
     CDLatch latch_;
 };
 
-}  // namespace aclolinta
+ // namespace aclolinta

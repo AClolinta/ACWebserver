@@ -16,7 +16,7 @@
 
 #include "HttpData.hpp"
 
-using namespace aclolinta;
+
 
 
 TimerNode::TimerNode(std::shared_ptr<HttpData> requestData, int timeout)

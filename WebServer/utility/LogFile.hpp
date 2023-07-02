@@ -19,7 +19,6 @@
 
 using namespace aclolinta;
 
-namespace aclolinta {
 class LogFile {
    private:
     /* data */
@@ -42,4 +41,4 @@ class LogFile {
     void flush();
     bool rollFile();
 };
-}  // namespace aclolinta
+  // namespace aclolinta

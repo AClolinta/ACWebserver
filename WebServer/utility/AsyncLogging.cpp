@@ -15,7 +15,7 @@
 
 #include "LogFile.hpp"
 
-using namespace aclolinta;
+// using namespace aclolinta;
 
 
 AsyncLogging::AsyncLogging(std::string_view logFileName_, int flushInterval)

@@ -19,7 +19,6 @@
 #include "CDLatch.hpp"
 #include "noncopyable.hpp"
 
-namespace aclolinta {
 
 class Thread {
    public:
@@ -47,4 +46,3 @@ class Thread {
     CDLatch latch_;
 };
 
-}  // namespace aclolinta

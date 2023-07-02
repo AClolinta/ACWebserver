@@ -7,7 +7,7 @@
  * @Description: 一个计时的锁 */
 #include "CDLatch.hpp"
 
-using namespace aclolinta;
+// using namespace aclolinta;
 
 CDLatch::CDLatch(size_t count) : m_mutex(), m_cond(m_mutex), m_count(count){};
 
