@@ -2,7 +2,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-22 09:18:08
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-07-01 03:13:02
+ * @LastEditTime: 2023-07-02 03:46:25
  * @FilePath: /ACWebserver/WebServer/utility/LogStream.hpp
  * @Description: 要用来格式化输出
  * */
@@ -56,8 +56,8 @@ class FixedBuffer : noncopyable {
 class LogStream : noncopyable {
    public:
     using Buffer = FixedBuffer<kSmallBuffer>;
-    LogStream(/* args */);
-    ~LogStream();
+    LogStream(/* args */) = default;
+    ~LogStream() = default;
 
    public:
     LogStream& operator<<(bool v) {
