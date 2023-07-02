@@ -2,7 +2,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-24 10:06:39
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-06-25 03:10:35
+ * @LastEditTime: 2023-07-02 03:20:23
  * @FilePath: /ACWebserver/WebServer/Util.cpp
  * @Description: 提供IO的工具*/
 #include "Util.hpp"
@@ -15,6 +15,8 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <unistd.h>
+
+using namespace aclolinta;
 
 const int MAX_BUFF = 4096;
 
