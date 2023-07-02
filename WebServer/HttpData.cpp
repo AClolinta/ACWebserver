@@ -13,8 +13,6 @@
 #include "EventLoop.hpp"
 #include "Util.hpp"
 
-using namespace aclolinta;
-
 pthread_once_t MimeType::once_control = PTHREAD_ONCE_INIT;
 std::map<std::string, std::string> MimeType::mime;
 

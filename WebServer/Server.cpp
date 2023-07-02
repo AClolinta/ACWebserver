@@ -2,7 +2,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-30 12:29:48
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-06-30 12:45:15
+ * @LastEditTime: 2023-07-02 03:17:48
  * @FilePath: /ACWebserver/WebServer/Server.cpp
  * @Description:  */
 #include "Server.hpp"
@@ -16,7 +16,6 @@
 #include "Logging.hpp"
 #include "Util.hpp"
 
-using namespace aclolinta;
 
 Server::Server(EventLoop* loop, int threadNum, int port)
     : loop_(loop),

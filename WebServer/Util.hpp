@@ -2,7 +2,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-23 11:30:48
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-07-01 03:19:44
+ * @LastEditTime: 2023-07-02 03:17:12
  * @FilePath: /ACWebserver/WebServer/Util.hpp
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置
  * 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
@@ -12,7 +12,6 @@
 #include <cstdlib>
 #include <string>
 
-namespace aclolinta {
 ssize_t readn(int fd, void *buff, size_t n);
 ssize_t readn(int fd, std::string &inBuffer, bool &zero);
 ssize_t readn(int fd, std::string &inBuffer);
@@ -26,4 +25,4 @@ void setSocketNoLinger(int fd);
 void shutDownWR(int fd);
 int socket_bind_listen(int port);
 
-}  // namespace aclolinta
+  // namespace aclolinta

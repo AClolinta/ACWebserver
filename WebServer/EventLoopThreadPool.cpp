@@ -2,11 +2,11 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-30 12:05:42
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-07-01 03:17:20
+ * @LastEditTime: 2023-07-02 03:18:40
  * @FilePath: /ACWebserver/WebServer/EventLoopThreadPool.cpp
  * @Description: 线程池 */
 #include "EventLoopThreadPool.hpp"
-using namespace aclolinta;
+
 
 EventLoopThreadPool::EventLoopThreadPool(EventLoop* baseLoop, int numThreads)
     : baseLoop_(baseLoop),

@@ -8,8 +8,6 @@
 #include "Logging.hpp"
 #include "Util.hpp"
 
-using namespace aclolinta;
-
 __thread EventLoop *t_loopInThisThread = nullptr;
 
 int createEventfd() {
