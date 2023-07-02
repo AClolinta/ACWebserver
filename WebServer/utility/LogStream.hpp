@@ -2,18 +2,17 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-22 09:18:08
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-07-01 03:13:02
+ * @LastEditTime: 2023-07-02 03:45:22
  * @FilePath: /ACWebserver/WebServer/utility/LogStream.hpp
  * @Description: 要用来格式化输出
  * */
 #pragma once
 #include <assert.h>
-
-#include <string>
 #include <string.h>
 
-#include "noncopyable.hpp"
+#include <string>
 
+#include "noncopyable.hpp"
 
 class AsyncLogging;
 
@@ -55,8 +54,8 @@ class FixedBuffer : noncopyable {
 class LogStream : noncopyable {
    public:
     using Buffer = FixedBuffer<kSmallBuffer>;
-    LogStream(/* args */);
-    ~LogStream();
+    LogStream(/* args */) = default;
+    ~LogStream() = default;
 
    public:
     LogStream& operator<<(bool v) {
@@ -109,6 +108,9 @@ class LogStream : noncopyable {
     void resetBuffer() { buffer_.reset(); }
 
    private:
+    void staticCheck();
+
+   private:
     /* data */
     template <typename T>
     void formatInteger(T);
@@ -116,9 +118,6 @@ class LogStream : noncopyable {
     Buffer buffer_;
 
     static const int kMaxNumericSize = 32;
-
-   private:
-    void staticCheck();
 };
 
-  // namespace aclolinta
+// namespace aclolinta

@@ -2,7 +2,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-22 08:58:57
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-06-22 09:07:47
+ * @LastEditTime: 2023-07-02 03:27:00
  * @FilePath: /ACWebserver/WebServer/utility/LogFile.hpp
  * @Description:
  * LogFile进一步封装了FileUtil，并设置了一个循环次数，没过这么多次就flush一次
@@ -17,7 +17,6 @@
 #include "MutexLock.hpp"
 #include "noncopyable.hpp"
 
-using namespace aclolinta;
 
 class LogFile {
    private:

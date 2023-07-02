@@ -2,7 +2,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-22 12:33:21
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-07-01 03:15:19
+ * @LastEditTime: 2023-07-02 03:42:33
  * @FilePath: /ACWebserver/WebServer/utility/Logging.cpp
  * @Description:  */
 #include "Logging.hpp"
@@ -16,8 +16,6 @@
 #include "AsyncLogging.hpp"
 #include "CurrentThread.hpp"
 #include "Thread.hpp"
-
-
 
 static pthread_once_t once_control_ = PTHREAD_ONCE_INIT;
 static AsyncLogging* AsyncLogger_;
@@ -33,6 +31,11 @@ void once_init() {
 void output(const char* msg, int len) {
     pthread_once(&once_control_, once_init);
     AsyncLogger_->append(msg, len);
+}
+
+Logger::Impl::Impl(const char* fileName, int line)
+    : stream_(), line_(line), basename_(fileName) {
+    formatTime();
 }
 
 void Logger::Impl::formatTime() {

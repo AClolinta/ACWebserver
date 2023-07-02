@@ -2,7 +2,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-29 11:35:48
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-07-02 03:18:12
+ * @LastEditTime: 2023-07-02 03:27:35
  * @FilePath: /ACWebserver/WebServer/Epoll.cpp
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置
  * 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
@@ -21,7 +21,6 @@
 
 #include "Logging.hpp"
 #include "Util.hpp"
-
 
 const int EVENTSNUM = 4096;
 const int EPOLLWAIT_TIME = 10000;
@@ -120,4 +119,4 @@ void Epoll::add_timer(SP_Channel request_data, int timeout) {
     } else {
         LOG << "TIMER ADD FAILL";
     }
-
+}

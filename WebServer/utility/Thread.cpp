@@ -2,7 +2,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-21 12:42:29
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-07-02 03:17:58
+ * @LastEditTime: 2023-07-02 03:27:15
  * @FilePath: /ACWebserver/WebServer /utility/Thread.cpp
  * @Description:线程类的实现 */
 
@@ -35,7 +35,7 @@ pid_t gettid() {
     return static_cast<pid_t>(::syscall(SYS_gettid));
 }  // 获取当前线程的线程ID（tid）
 
-void aclolinta::CurrentThread::cacheTid() {
+void CurrentThread::cacheTid() {
     if (t_cachedTid == 0) {
         t_cachedTid = gettid();
         t_tidStringLength =
