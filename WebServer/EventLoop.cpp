@@ -74,7 +74,7 @@ void EventLoop::runInLoop(Functor &&cb) {
 }
 
 void EventLoop::queueInLoop(Functor &&cb) {
-    LOG << "queueInLoop";
+    // LOG << "queueInLoop";
     {
         MutexLockGuard lock(mutex_);
         pendingFunctors_.emplace_back(std::move(cb));

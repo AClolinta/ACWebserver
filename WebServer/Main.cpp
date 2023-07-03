@@ -2,7 +2,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-21 11:17:02
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-07-02 03:17:50
+ * @LastEditTime: 2023-07-03 03:49:08
  * @FilePath: /ACWebserver/WebServer/main.cpp
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -19,7 +19,7 @@
 int main(int argc, char *argv[]) {
     int threadNum = 4;
     int port = 80;
-    std::string logPath = "./WebServer.log";
+    std::string logPath = "/home/ac/ACWebserver/WebServer.log";
 
     // parse args
     int opt;
