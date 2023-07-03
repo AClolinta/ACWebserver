@@ -135,6 +135,7 @@ HttpData::HttpData(EventLoop *loop, int connfd)
       hState_(H_START),
       keepAlive_(false) {
     // loop_->queueInLoop(bind(&HttpData::setHandlers, this));
+    LOG<<"HttpData::HttpData";
     channel_->setReadHandler(std::bind(&HttpData::handleRead, this));
     channel_->setWriteHandler(std::bind(&HttpData::handleWrite, this));
     channel_->setConnHandler(std::bind(&HttpData::handleConn, this));
@@ -619,6 +620,7 @@ void HttpData::handleClose() {
 }
 
 void HttpData::newEvent() {
+    LOG<<"newEvent";
     channel_->setEvents(DEFAULT_EVENT);
     loop_->addToPoller(channel_, DEFAULT_EXPIRED_TIME);
 }
