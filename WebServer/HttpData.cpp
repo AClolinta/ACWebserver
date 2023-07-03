@@ -612,6 +612,7 @@ void HttpData::handleError(int fd, int err_num, std::string short_msg) {
 }
 
 void HttpData::handleClose() {
+    LOG<< "close httpdata fd: " << fd_;
     connectionState_ = H_DISCONNECTED;
     std::shared_ptr<HttpData> guard(shared_from_this());
     loop_->removeFromPoller(channel_);

@@ -2,19 +2,13 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-30 12:05:42
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-07-02 03:18:40
+ * @LastEditTime: 2023-07-02 04:35:23
  * @FilePath: /ACWebserver/WebServer/EventLoopThreadPool.cpp
  * @Description: 线程池 */
 #include "EventLoopThreadPool.hpp"
 
-
 EventLoopThreadPool::EventLoopThreadPool(EventLoop* baseLoop, int numThreads)
-    : baseLoop_(baseLoop),
-      started_(false),
-      numThreads_(numThreads),
-      next_(0),
-      threads_(),
-      loops_() {
+    : baseLoop_(baseLoop), started_(false), numThreads_(numThreads), next_(0) {
     if (numThreads_ <= 0) {
         LOG << ("numThreads_ <= 0");
         abort();
@@ -31,7 +25,7 @@ void EventLoopThreadPool::start() {
     }
 }
 
-EventLoop* EventLoopThreadPool::getNextLoop(){
+EventLoop* EventLoopThreadPool::getNextLoop() {
     baseLoop_->assertInLoopThread();
     assert(started_);
     EventLoop* loop = baseLoop_;

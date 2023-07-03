@@ -2,7 +2,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-30 12:29:48
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-07-02 03:17:48
+ * @LastEditTime: 2023-07-03 02:37:23
  * @FilePath: /ACWebserver/WebServer/Server.cpp
  * @Description:  */
 #include "Server.hpp"
@@ -15,7 +15,6 @@
 
 #include "Logging.hpp"
 #include "Util.hpp"
-
 
 Server::Server(EventLoop* loop, int threadNum, int port)
     : loop_(loop),
@@ -34,6 +33,7 @@ Server::Server(EventLoop* loop, int threadNum, int port)
 }
 
 void Server::start() {
+    eventLoopThreadPool_->start();
     acceptChannel_->setEvents(EPOLLIN | EPOLLET);
     acceptChannel_->setReadHandler(std::bind(&Server::handNewConn, this));
     acceptChannel_->setConnHandler(std::bind(&Server::handThisConn, this));
@@ -57,14 +57,17 @@ void Server::handNewConn() {
             continue;
         }
         // set socket non block
+        // LOG<<"SetSocketNonBlocking!";
         if (setSocketNonBlocking(accept_fd) < 0) {
             LOG << "Set non block failed!";
             return;
         }
         setSocketNodelay(accept_fd);
-
+        // LOG << "SetSocketNodelay!";
+        //bind channel and httpdata
         std::shared_ptr<HttpData> req_info(new HttpData(loop, accept_fd));
         req_info->getChannel()->setHolder(req_info);
+        // put into the eventloop
         loop->queueInLoop(std::bind(&HttpData::newEvent, req_info));
     }
     acceptChannel_->setEvents(EPOLLIN | EPOLLET);
