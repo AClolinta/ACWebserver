@@ -2,7 +2,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-21 12:03:37
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-06-21 13:19:07
+ * @LastEditTime: 2023-07-01 03:13:26
  * @FilePath: /ACWebserver/WebServer /utility/thread.hpp
  * @Description: 线程类
  * */
@@ -18,9 +18,6 @@
 
 #include "CDLatch.hpp"
 #include "noncopyable.hpp"
-
-namespace aclolinta {
-namespace thread {
 
 
 class Thread {
@@ -49,5 +46,3 @@ class Thread {
     CDLatch latch_;
 };
 
-}  // namespace thread
-}  // namespace aclolinta

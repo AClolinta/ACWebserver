@@ -13,8 +13,6 @@
 
 #include "noncopyable.hpp"
 
-namespace aclolinta {
-namespace thread {
 class MutexLock : noncopyable {
    public:
     MutexLock() { pthread_mutex_init(&mutex, NULL); }
@@ -43,5 +41,4 @@ class MutexLockGuard : noncopyable {
     MutexLock &mutex;
 };
 
-}  // namespace thread
-}  // namespace aclolinta
+  // namespace aclolinta

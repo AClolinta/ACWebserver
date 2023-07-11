@@ -14,8 +14,6 @@
 
 #include "noncopyable.hpp"
 
-namespace aclolinta {
-namespace logger {
 class AppendFile : noncopyable {
    public:
     explicit AppendFile(std::string filename);
@@ -34,5 +32,4 @@ class AppendFile : noncopyable {
     char buffer_[64 * 1024];
 };
 
-}  // namespace logger
-}  // namespace aclolinta
+  // namespace aclolinta

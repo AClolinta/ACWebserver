@@ -2,7 +2,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-25 04:10:39
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-06-30 10:35:43
+ * @LastEditTime: 2023-07-01 03:41:22
  * @FilePath: /ACWebserver/WebServer/Channel.cpp
  * @Description:
  *  */
@@ -18,8 +18,7 @@
 #include "EventLoop.hpp"
 #include "Util.hpp"
 
-using namespace aclolinta::task;
-using namespace aclolinta::event;
+
 
 Channel::Channel(EventLoop *loop)
     : loop_(loop), fd_(0), events_(0), revents_(0), lastEvents_(0) {}
@@ -29,8 +28,8 @@ Channel::Channel(EventLoop *loop, int fd)
 
 Channel::~Channel() = default;
 
-int Channel::getFd() { return fd_; }
-void Channel::setFd(int fd) { fd_ = fd; }
+// int Channel::getFd() { return fd_; }
+// void Channel::setFd(int fd) { fd_ = fd; }
 
 void Channel::handleRead() {
     if (readHandler_) {

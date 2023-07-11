@@ -1,18 +1,12 @@
-# set(SRCS
-#     main.cpp
-# )
-# get_filename_component(CURRENT_DIR "${CMAKE_CURRENT_LIST_DIR}" ABSOLUTE)
-# message(${CURRENT_DIR})
 
 aux_source_directory(./ SRCS)
 
-
-
 message("${SRCS}")
+# message(${PROJECT_SOURCE_DIR}/WebServer/utility)
 
 add_executable(WebServer ${SRCS})
-target_link_libraries(WebServer libserver_base)
+target_link_libraries(WebServer utility)
 
 
-# add_subdirectory(base)
-# add_subdirectory(tests)
+add_subdirectory(utility)
+add_subdirectory(TestDemo)

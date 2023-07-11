@@ -2,7 +2,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-23 11:54:18
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-06-29 12:47:19
+ * @LastEditTime: 2023-07-02 03:27:58
  * @FilePath: /ACWebserver/WebServer/Timer.cpp
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置
  * 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
@@ -16,9 +16,6 @@
 
 #include "HttpData.hpp"
 
-using namespace aclolinta::timer;
-using namespace aclolinta::http;
-
 TimerNode::TimerNode(std::shared_ptr<HttpData> requestData, int timeout)
     : deleted_(false), SPHttpData(requestData) {
     struct timeval now;
@@ -31,7 +28,7 @@ TimerNode::~TimerNode() {
     if (SPHttpData) SPHttpData->handleClose();
 }
 TimerNode::TimerNode(TimerNode &tn)
-    : SPHttpData(tn.SPHttpData), expiredTime_(0) {}
+    : expiredTime_(0), SPHttpData(tn.SPHttpData) {}
 
 void TimerNode::update(size_t timeout) {
     struct timeval now;

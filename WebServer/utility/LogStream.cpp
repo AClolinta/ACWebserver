@@ -2,7 +2,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-22 09:51:36
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-06-22 09:55:26
+ * @LastEditTime: 2023-07-01 03:12:51
  * @FilePath: /ACWebserver/WebServer/utility/LogStream.cpp
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置
  * 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
@@ -17,7 +17,6 @@
 #include <algorithm>
 #include <limits>
 
-using namespace aclolinta::logger;
 
 // 方便在后续的代码中通过指针 zero 来访问数字 0
 const char digits[] = "9876543210123456789";

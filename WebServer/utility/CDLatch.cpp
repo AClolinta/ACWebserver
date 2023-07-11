@@ -2,12 +2,12 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-21 12:08:48
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-06-21 12:14:39
+ * @LastEditTime: 2023-07-01 03:12:26
  * @FilePath: /ACWebserver/WebServer /utility/CDLatch.cpp
  * @Description: 一个计时的锁 */
 #include "CDLatch.hpp"
 
-using namespace aclolinta::thread;
+// using namespace aclolinta;
 
 CDLatch::CDLatch(size_t count) : m_mutex(), m_cond(m_mutex), m_count(count){};
 

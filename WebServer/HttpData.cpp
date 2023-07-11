@@ -13,13 +13,6 @@
 #include "EventLoop.hpp"
 #include "Util.hpp"
 
-using namespace aclolinta::http;
-using namespace aclolinta::task;
-using namespace aclolinta::event;
-using namespace aclolinta::timer;
-using namespace aclolinta::util;
-using namespace aclolinta::logger;
-
 pthread_once_t MimeType::once_control = PTHREAD_ONCE_INIT;
 std::map<std::string, std::string> MimeType::mime;
 
@@ -142,6 +135,7 @@ HttpData::HttpData(EventLoop *loop, int connfd)
       hState_(H_START),
       keepAlive_(false) {
     // loop_->queueInLoop(bind(&HttpData::setHandlers, this));
+    // LOG<<"HttpData::HttpData";
     channel_->setReadHandler(std::bind(&HttpData::handleRead, this));
     channel_->setWriteHandler(std::bind(&HttpData::handleWrite, this));
     channel_->setConnHandler(std::bind(&HttpData::handleConn, this));
@@ -212,7 +206,7 @@ void HttpData::handleRead() {
                 // 状态-解析头部
             }
         }
-
+        // std::cout<<"state_ = "<<state_<<std::endl;
         if (state_ == STATE_PARSE_HEADERS) {
             HeaderState flag = this->parseHeaders();
             if (flag == PARSE_HEADER_AGAIN) {
@@ -231,6 +225,7 @@ void HttpData::handleRead() {
                 state_ = STATE_ANALYSIS;
             }
         }
+        // std::cout << "state1_ = " << state_ << std::endl;
         // 接受Body
         if (state_ == STATE_RECV_BODY) {
             int content_length = -1;
@@ -342,7 +337,7 @@ URIState HttpData::parseURI() {
     std::string cop = str;
     // 读到完整的请求行再开始解析请求
     // 当前的位置
-    int pos = str.find('\r', nowReadPos_);
+    size_t pos = str.find('\r', nowReadPos_);
     if (pos < 0) {
         return PARSE_URI_AGAIN;
     }
@@ -358,47 +353,59 @@ URIState HttpData::parseURI() {
     int posPost = request_line.find("POST");
     int posHead = request_line.find("HEAD");
 
-    if (posGet > 0) {
+    if (posGet >= 0) {
         pos = posGet;
         method_ = METHOD_GET;
-    } else if (posPost > 0) {
+    } else if (posPost >= 0) {
         pos = posPost;
         method_ = METHOD_POST;
-    } else if (posHead > 0) {
+    } else if (posHead >= 0) {
         pos = posHead;
         method_ = METHOD_HEAD;
     } else {
         return PARSE_URI_ERROR;
     }
+    // LOG<<"method_ = "<<method_;
     // Get the file name
-    int _pos = request_line.find("/", pos);
-    if (_pos < 0) {
+    pos = request_line.find("/", pos);
+    if (pos < 0) {
         fileName_ = "index.html";
         HTTPVersion_ = HTTP_11;
         return PARSE_URI_SUCCESS;
     } else {
-        if (_pos - pos > 1) {
-            fileName_ = request_line.substr(pos + 1, _pos - pos - 1);
-            int __pos = fileName_.find("?");
-            if (__pos >= 0) {
-                fileName_ = fileName_.substr(0, __pos);
+        size_t _pos = request_line.find(' ', pos);
+        // std::cout << "pos = " << pos << " _pos = " << _pos << std::endl;
+        if (_pos < 0)
+            return PARSE_URI_ERROR;
+        else {
+            if (_pos - pos > 1) {
+                fileName_ = request_line.substr(pos + 1, _pos - pos - 1);
+                size_t __pos = fileName_.find('?');
+                // std::cout << "__pos = " << __pos << std::endl;
+                if (__pos != std::string::npos) {
+                    // std::cout<<"? found"<<std::endl;
+                    fileName_ = fileName_.substr(0, __pos);
+                }
+            }
+
+            else {
+                fileName_ = "index.html";
             }
         }
-        //
-        else {
-            fileName_ = "index.html";
-        }
+        pos = _pos;
     }
-    pos = _pos;
+    // std::cout << "fileName_: " << fileName_ << std::endl;
+    LOG << "fileName_: " << fileName_;
     // HTTP 版本号
     pos = request_line.find("/", pos);
-    if (pos < 0) {
+    if (pos == std::string::npos) {
         return PARSE_URI_ERROR;
     } else {
         if (request_line.size() - pos <= 3) {
             return PARSE_URI_ERROR;
         } else {
             std::string ver = request_line.substr(pos + 1, 3);
+            // std::cout<<"ver: "<<ver<<std::endl;
             if (ver == "1.0") {
                 HTTPVersion_ = HTTP_10;
             } else if (ver == "1.1") {
@@ -408,6 +415,7 @@ URIState HttpData::parseURI() {
             }
         }
     }
+    // std::cout << "fileName_: " << fileName_ << std::endl;
     return PARSE_URI_SUCCESS;
 }
 
@@ -509,8 +517,10 @@ HeaderState HttpData::parseHeaders() {
     }
     if (hState_ == H_END_LF) {
         str = str.substr(i);
+        return PARSE_HEADER_SUCCESS;
     }
     str = str.substr(now_read_line_begin);
+    // std::cout << "headers: " << std::endl;
     return PARSE_HEADER_AGAIN;
 }
 
@@ -608,8 +618,8 @@ void HttpData::handleError(int fd, int err_num, std::string short_msg) {
     header_buff += "HTTP/1.1 " + std::to_string(err_num) + short_msg + "\r\n";
     header_buff += "Content-Type: text/html\r\n";
     header_buff += "Connection: Close\r\n";
-    header_buff += "Content-Length: " + std::to_string(body_buff.size()) +
-                   "\r\n";
+    header_buff +=
+        "Content-Length: " + std::to_string(body_buff.size()) + "\r\n";
     header_buff += "Server: ACLOLINTA Web Server\r\n\r\n";
     // Error handling does not consider writen incomplete
     sprintf(send_buff, "%s", header_buff.c_str());
@@ -619,12 +629,14 @@ void HttpData::handleError(int fd, int err_num, std::string short_msg) {
 }
 
 void HttpData::handleClose() {
+    // LOG<< "close httpdata fd: " << fd_;
     connectionState_ = H_DISCONNECTED;
     std::shared_ptr<HttpData> guard(shared_from_this());
     loop_->removeFromPoller(channel_);
 }
 
-void HttpData::newEvent(){
+void HttpData::newEvent() {
+    // LOG<<"newEvent";
     channel_->setEvents(DEFAULT_EVENT);
     loop_->addToPoller(channel_, DEFAULT_EXPIRED_TIME);
 }

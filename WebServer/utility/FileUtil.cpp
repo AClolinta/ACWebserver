@@ -6,7 +6,6 @@
  * @FilePath: /ACWebserver/WebServer /utility/FileUtil.cpp
  * @Description:  */
 #include "FileUtil.hpp"
-using namespace aclolinta::logger;
 
 #include <assert.h>
 #include <errno.h>

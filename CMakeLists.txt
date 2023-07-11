@@ -27,5 +27,6 @@ message(STATUS "CXX_FLAGS = " ${CMAKE_CXX_FLAGS} " " ${CMAKE_CXX_FLAGS_${BUILD_T
 
 # include_directories(${PROJECT_SOURCE_DIR}/utility)
 include_directories(${PROJECT_SOURCE_DIR}/WebServer/utility)
+include_directories(${PROJECT_SOURCE_DIR}/WebServer)
 
 add_subdirectory(WebServer)

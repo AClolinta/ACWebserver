@@ -2,7 +2,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-23 11:30:28
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-06-30 12:10:38
+ * @LastEditTime: 2023-07-02 03:18:24
  * @FilePath: /ACWebserver/WebServer/EventLoop.hpp
  * @Description: EventLoop
  * One loop per thread意味着每个线程只能有一个EventLoop对象，
@@ -23,11 +23,8 @@
 #include "Thread.hpp"
 #include "Util.hpp"
 // #include "CDLatch.hpp"
-using namespace aclolinta::thread;
-using namespace aclolinta::util;
 
-namespace aclolinta {
-namespace event {
+
 class EventLoop {
    public:
     using Functor = std::function<void()>;
@@ -82,5 +79,4 @@ class EventLoop {
     void handleConn();
 };
 
-}  // namespace event
-}  // namespace aclolinta
+  // namespace aclolinta

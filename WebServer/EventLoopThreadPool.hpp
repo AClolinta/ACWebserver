@@ -15,12 +15,6 @@
 #include "Logging.hpp"
 #include "noncopyable.hpp"
 
-using namespace aclolinta::thread;
-using namespace aclolinta::event;
-using namespace aclolinta::logger;
-
-namespace aclolinta {
-namespace event {
 
 class EventLoopThreadPool : public noncopyable {
    public:
@@ -39,5 +33,4 @@ class EventLoopThreadPool : public noncopyable {
     std::vector<std::unique_ptr<EventLoopThread>> threads_;
     std::vector<EventLoop*> loops_;
 };
-}  // namespace event
-}  // namespace aclolinta
+  // namespace aclolinta

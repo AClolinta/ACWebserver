@@ -16,8 +16,6 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
-using namespace aclolinta::util;
-
 const int MAX_BUFF = 4096;
 
 /// @brief 从fd读取数据放到缓冲区

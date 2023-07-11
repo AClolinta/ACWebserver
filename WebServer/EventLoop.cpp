@@ -8,11 +8,6 @@
 #include "Logging.hpp"
 #include "Util.hpp"
 
-using namespace aclolinta::event;
-
-using namespace aclolinta::util;
-using namespace aclolinta::logger;
-
 __thread EventLoop *t_loopInThisThread = nullptr;
 
 int createEventfd() {
@@ -30,8 +25,6 @@ EventLoop::EventLoop()
       wakeupFd_(createEventfd()),
       qiut_(false),
       eventHandling_(false),
-      mutex_(),
-      pendingFunctors_(),
       callingPendingFunctors_(false),
       threadId_(CurrentThread::tid()),
       pwakeupChannel_(new Channel(this, wakeupFd_)) {
@@ -81,12 +74,16 @@ void EventLoop::runInLoop(Functor &&cb) {
 }
 
 void EventLoop::queueInLoop(Functor &&cb) {
+    // LOG << "queueInLoop";
     {
         MutexLockGuard lock(mutex_);
         pendingFunctors_.emplace_back(std::move(cb));
     }
 
-    if (!isInLoopThread() || callingPendingFunctors_) wakeup();
+    if (!isInLoopThread() || callingPendingFunctors_) {
+        LOG << "wakeup";
+        wakeup();
+    };
 }
 
 void EventLoop::loop() {
@@ -95,6 +92,7 @@ void EventLoop::loop() {
     looping_ = true;
     qiut_ = false;
     std::vector<SP_Channel> ret;
+
     while (!qiut_) {
         ret.clear();
         ret = poller_->poll();
@@ -115,7 +113,7 @@ void EventLoop::doPendingFunctors() {
         functors.swap(pendingFunctors_);
     }
     // perform the pending functors
-    for (auto it = functors.begin(); it != functors.end();++it) (*it);
+    for (size_t i = 0; i < functors.size(); ++i) functors[i]();
     callingPendingFunctors_ = false;
 }
 

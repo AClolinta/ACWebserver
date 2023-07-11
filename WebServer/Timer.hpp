@@ -3,7 +3,7 @@
  * @Author: AClolinta AClolinta@gmail.com
  * @Date: 2023-06-22 12:45:22
  * @LastEditors: AClolinta AClolinta@gmail.com
- * @LastEditTime: 2023-06-25 09:54:24
+ * @LastEditTime: 2023-07-01 03:43:08
  * @FilePath: /ACWebserver/WebServer/Time.hpp
  * @Description: 计时器 */
 #pragma once
@@ -17,9 +17,11 @@
 #include "MutexLock.hpp"
 #include "noncopyable.hpp"
 
-namespace aclolinta {
-namespace timer {
-class aclolinta::http::HttpData;
+
+
+// class aclolinta::http::HttpData;
+
+class HttpData;
 
 class TimerNode {
    public:
@@ -53,7 +55,7 @@ struct TimerCMP {
 class TimerManager {
    public:
     TimerManager(/* args */) = default;
-    ~TimerManager() =default;
+    ~TimerManager() = default;
 
    public:
     void addTimer(std::shared_ptr<HttpData> SPHttpData, int timeout);
@@ -67,5 +69,4 @@ class TimerManager {
     // MutexLock lock;
 };
 
-}  // namespace timer
-}  // namespace aclolinta
+
